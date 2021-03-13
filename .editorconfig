@@ -1,0 +1,21 @@
+root = true
+[*]
+indent_style = space
+charset = utf-8
+
+[*.{cpp,c,hpp,h}]
+# https://devblogs.microsoft.com/cppblog/new-options-for-managing-character-sets-in-the-microsoft-cc-compiler/
+# documents in details how the MS C++ compiler reads .cpp files. It is a complex story and
+# it seem that utf-8-bom is the preferred setting
+indent_style = space
+indent_size = 4
+
+# 4 space indentation
+[*.{py}]
+indent_style = space
+indent_size = 4
+
+# 4 space indentation
+[*.{txt,cmake,xml,json,targets}]
+indent_style = space
+indent_size = 4

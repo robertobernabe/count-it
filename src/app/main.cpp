@@ -8,10 +8,9 @@
 
 #include "json_data.hpp"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-
-    CLI::App app{"countit\nA simple cli based tap counter"};
+    CLI::App app{ "countit\nA simple cli based tap counter" };
     std::string name = "default";
     app.add_option("name", name, "Counter name");
 
