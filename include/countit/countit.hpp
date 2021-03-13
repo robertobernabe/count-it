@@ -1,23 +1,39 @@
+#pragma once
 #include <iostream>
 #include <string>
 
-class CountIt {
-    int count {1};
-    std::string name {};
-    public:
-        CountIt(std::string name): name(name) {
-        
-        };
+class CountIt
+{
 
-    int get_amount() {
+private:
+    int count{1};
+    std::string name{};
+
+public:
+    CountIt(std::string name) : name(name){};
+
+    const int get_count()
+    {
         return count;
     }
 
-    std::string get_name() {
+    void set_count(int value)
+    {
+        count = value;
+    }
+
+    const std::string get_name()
+    {
         return name;
     }
-    void operator ++(int){
-         count++;
-         }
 
+    void set_name(std::string value)
+    {
+        name = value;
+    }
+
+    void operator++(int)
+    {
+        count++;
+    }
 };
