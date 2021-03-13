@@ -1,0 +1,11 @@
+
+{
+    "name": "countit",
+    "version-string": "0.0.1",
+    "dependencies": [
+        "fmt",
+        "nlohmann-json",
+        "cli11",
+        "gtest"
+    ]
+}
