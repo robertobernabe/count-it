@@ -21,5 +21,7 @@ int main(int argc, char **argv)
     fmt::print("{}: {}\n", c.get_name(), c.get_count());
     nlohmann::json j = c;
     std::cout << "json: " << j << std::endl;
+    auto c2 = j.get<robertobernabe::countit::CountIt>();
+    fmt::print("{}: {}\n", c2.get_name(), c2.get_count());
     return 0;
 }

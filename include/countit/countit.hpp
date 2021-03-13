@@ -13,6 +13,7 @@ namespace robertobernabe::countit
 
     public:
         CountIt(std::string name) : name(name){};
+        CountIt() : name("default"){};
 
         int get_count()
         {

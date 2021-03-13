@@ -11,7 +11,7 @@ namespace robertobernabe::countit
 
     void from_json(const nlohmann::json &j, CountIt &c)
     {
-        //j.at("name").get_to(c.set_name);
-        //j.at("count").get_to(c.set_count);
+        c.set_name(j.at("name").get<std::string>());
+        c.set_count(j.at("count").get<int>());
     }
 } // namespace ns
