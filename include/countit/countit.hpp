@@ -2,38 +2,41 @@
 #include <iostream>
 #include <string>
 
-class CountIt
+namespace robertobernabe::countit
 {
-
-private:
-    int count{1};
-    std::string name{};
-
-public:
-    CountIt(std::string name) : name(name){};
-
-    const int get_count()
+    class CountIt
     {
-        return count;
-    }
 
-    void set_count(int value)
-    {
-        count = value;
-    }
+    private:
+        int count{1};
+        std::string name{};
 
-    const std::string get_name()
-    {
-        return name;
-    }
+    public:
+        CountIt(std::string name) : name(name){};
 
-    void set_name(std::string value)
-    {
-        name = value;
-    }
+        int get_count()
+        {
+            return count;
+        }
 
-    void operator++(int)
-    {
-        count++;
-    }
+        void set_count(int value)
+        {
+            count = value;
+        }
+
+        std::string get_name()
+        {
+            return name;
+        }
+
+        void set_name(std::string value)
+        {
+            name = value;
+        }
+
+        void operator++(int)
+        {
+            count++;
+        }
+    };
 };

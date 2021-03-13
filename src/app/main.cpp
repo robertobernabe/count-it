@@ -14,11 +14,12 @@ int main(int argc, char **argv)
     CLI::App app{"countit\nA simple cli based tap counter"};
     std::string name = "default";
     app.add_option("name", name, "Counter name");
-    
+
     CLI11_PARSE(app, argc, argv)
 
-    auto c = CountIt(name);
-    fmt::print("{}: {}", c.get_name(), c.get_count());
-
+    auto c = robertobernabe::countit::CountIt(name);
+    fmt::print("{}: {}\n", c.get_name(), c.get_count());
+    nlohmann::json j = c;
+    std::cout << "json: " << j << std::endl;
     return 0;
 }
