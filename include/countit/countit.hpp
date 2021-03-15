@@ -1,42 +1,50 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <nlohmann/json.hpp>
+#include "tap_counter.hpp"
+#include "json_data.hpp"
 
 namespace robertobernabe::countit
 {
     class CountIt
     {
     private:
-        int count{ 1 };
-        std::string name{};
+        std::vector<TapCounter> counters{};
 
     public:
-        CountIt(std::string name) : name(name){};
-        CountIt() : name("default"){};
+        CountIt(){};
 
-        int get_count() const
+        void add_counter(std::string name = "default")
         {
-            return count;
+            auto c = TapCounter();
+            counters.push_back(c);
         }
 
-        void set_count(int value)
+        void increment_counter(std::string name = "default")
         {
-            count = value;
         }
 
-        std::string get_name() const
+        TapCounter get_counter(std::string name = "default")
         {
-            return name;
+            for (auto c : counters)
+            {
+                if (c.get_name() == name)
+                {
+                    return c;
+                }
+            }
         }
 
-        void set_name(std::string value)
+        std::vector<TapCounter> get_all_counters()
         {
-            name = value;
+            return counters;
         }
 
-        void operator++(int)
+        void serialize()
         {
-            count++;
+            nlohmann::json j = counters;
+            std::cout << "json: " << j << std::endl;
         }
     };
 };
