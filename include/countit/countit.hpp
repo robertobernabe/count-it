@@ -6,16 +6,15 @@ namespace robertobernabe::countit
 {
     class CountIt
     {
-
     private:
-        int count{1};
+        int count{ 1 };
         std::string name{};
 
     public:
         CountIt(std::string name) : name(name){};
         CountIt() : name("default"){};
 
-        int get_count()
+        int get_count() const
         {
             return count;
         }
@@ -25,7 +24,7 @@ namespace robertobernabe::countit
             count = value;
         }
 
-        std::string get_name()
+        std::string get_name() const
         {
             return name;
         }

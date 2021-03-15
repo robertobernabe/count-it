@@ -4,7 +4,7 @@
 
 namespace robertobernabe::countit
 {
-    void to_json(nlohmann::json& j, CountIt& c)
+    void to_json(nlohmann::json& j, const CountIt& c)
     {
         j = nlohmann::json{ { "name", c.get_name() }, { "count", c.get_count() } };
     }
