@@ -1,0 +1,25 @@
+{
+    "cmake.debugConfig": {
+        "args": [
+            "add",
+            "test"
+        ]
+    },
+    "cSpell.words": [
+        "cmake",
+        "nlohmann",
+        "stdfs",
+        "whour"
+    ],
+    "files.associations": {
+        "Doxyfile": "shellscript",
+        "*.sls": "sls",
+        "*.ps1": "powershell",
+        "algorithm": "cpp",
+        "chrono": "cpp",
+        "iterator": "cpp",
+        "xhash": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
+    }
+}
