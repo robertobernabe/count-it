@@ -32,7 +32,7 @@ jobs:
         run: |
           "cmake -B build -S . DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
       - name: Build
-        run: "cmake --build build --config Release
+        run: "cmake --build build --config Release"
 
       - name: Run
         run: cd build && ctest -c Release
