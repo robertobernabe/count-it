@@ -22,6 +22,16 @@ namespace robertobernabe::countit
         const std::string COUNTIT_STORAGE_FILE_NAME = "storage.json";
         stdfs::path storage_filepath{};
 
+        const fmt::color colors[6] = { fmt::color::red,   fmt::color::blue,   fmt::color::green,
+                                       fmt::color::white, fmt::color::yellow, fmt::color::chocolate };
+
+        fmt::color get_random_color()
+        {
+            srand(time(0));
+            auto index = rand() % 6;
+            return colors[index];
+        }
+
     public:
         CountIt()
         {
@@ -31,12 +41,18 @@ namespace robertobernabe::countit
             storage_filepath = storage_directory_path / COUNTIT_STORAGE_FILE_NAME;
         };
 
+        bool storage_file_exists()
+        {
+            return stdfs::exists(storage_filepath);
+        }
+
         void add_counter(std::string name = "default")
         {
             auto e = get_counter(name);
             if (e.get_is_empty())
             {
                 auto c = TapCounter(name);
+                c.set_color(get_random_color());
                 counters.push_back(c);
             }
             else
@@ -77,10 +93,13 @@ namespace robertobernabe::countit
 
         void deserialize()
         {
-            std::ifstream i(storage_filepath.string());
-            std::string str((std::istreambuf_iterator<char>(i)), std::istreambuf_iterator<char>());
-            nlohmann::json j = nlohmann::json::parse(str);
-            counters = j.get<std::vector<TapCounter>>();
+            if (stdfs::exists(storage_filepath))
+            {
+                std::ifstream i(storage_filepath.string());
+                std::string str((std::istreambuf_iterator<char>(i)), std::istreambuf_iterator<char>());
+                nlohmann::json j = nlohmann::json::parse(str);
+                counters = j.get<std::vector<TapCounter>>();
+            }
         }
 
         void serialize()

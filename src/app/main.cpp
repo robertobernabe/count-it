@@ -37,7 +37,6 @@ int main(int argc, char** argv)
         auto counters = countit.get_all_counters();
         if (!counters.empty())
         {
-            fmt::print("Available counters:\n");
             for (auto c : counters)
             {
                 fmt::print(fg(c.get_color()), "{}: {}\n", c.get_name(), c.get_count());
