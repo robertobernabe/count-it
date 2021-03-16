@@ -30,9 +30,9 @@ jobs:
           appendedCacheKey: ${{ hashFiles( '**/vcpkg_manifest/vcpkg.json' ) }}
       - name: Configure and build dependencies
         run: |
-          "cmake -B build -S . DCMAKE_TOOLCHAIN_FILE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          "cmake -B build -S . DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
       - name: Build
-        run: "cmake --build build --config $BUILD_TYPE"
+        run: "cmake --build build --config Release
 
       - name: Run
-        run: cd build && ctest -c $BUILD_TYPE
+        run: cd build && ctest -c Release
