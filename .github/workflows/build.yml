@@ -1,0 +1,40 @@
+name: "Build count-it"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  job:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+        include:
+          - os: windows-latest
+            bin: Debug/countit.exe
+
+    steps:
+      - uses: "actions/checkout@v2"
+        with:
+          submodules: true
+
+      - name: Restore from cache and install vcpkg
+        uses: "lukka/run-vcpkg@v6"
+        with:
+          vcpkgDirectory: "${{ github.workspace }}/vcpkg"
+          setupOnly: true
+          appendedCacheKey: ${{ hashFiles( '**/vcpkg_manifest/vcpkg.json' ) }}
+      - name: Configure and build dependencies
+        run: |
+          cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      - name: Build
+        run: "cmake --build build"
+
+      - name: Run
+        run: cd build && ctest -c Debug

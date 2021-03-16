@@ -2,7 +2,7 @@
     "cmake.debugConfig": {
         "args": [
             "add",
-            "test"
+            "something"
         ]
     },
     "cSpell.words": [
