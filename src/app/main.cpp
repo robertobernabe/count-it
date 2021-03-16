@@ -19,17 +19,19 @@ int main(int argc, char** argv)
 {
     CLI::App app{ "countit\nA simple cli based tap counter" };
     auto countit = CountIt();
-    countit.deserialize();
     auto add = app.add_subcommand("add", "Increment count of given counter");
     auto list = app.add_subcommand("list", "List and show specific counter");
     std::string name = "default";
     add->add_option("name", name, "Counter name");
 
     add->callback([&]() {
-        fmt::print("Add counter\n");
+        countit.deserialize();
         countit.add_counter(name);
+        fmt::print("Added counter: {}\n", name);
+        fmt::print("Actual count: {}", countit.get_counter(name).get_count());
     });
     list->callback([&]() {
+        countit.deserialize();
         auto counters = countit.get_all_counters();
         if (!counters.empty())
         {

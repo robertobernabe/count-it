@@ -32,12 +32,27 @@ namespace robertobernabe::countit
 
         void add_counter(std::string name = "default")
         {
-            auto c = TapCounter(name);
-            counters.push_back(c);
+            auto e = get_counter(name);
+            if (e.get_is_empty())
+            {
+                auto c = TapCounter(name);
+                counters.push_back(c);
+            }
+            else
+            {
+                increment_counter(name);
+            }
         }
 
         void increment_counter(std::string name = "default")
         {
+            for (auto& c : counters)
+            {
+                if (c.get_name() == name)
+                {
+                    c++;
+                }
+            }
         }
 
         TapCounter get_counter(std::string name = "default")
@@ -49,6 +64,9 @@ namespace robertobernabe::countit
                     return c;
                 }
             }
+            auto e = TapCounter();
+            e.set_is_empty();
+            return e;
         }
 
         std::vector<TapCounter> get_all_counters()
