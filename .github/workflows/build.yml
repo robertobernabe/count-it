@@ -1,12 +1,10 @@
 name: "Build count-it"
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
 
 jobs:
   job:
@@ -32,9 +30,9 @@ jobs:
           appendedCacheKey: ${{ hashFiles( '**/vcpkg_manifest/vcpkg.json' ) }}
       - name: Configure and build dependencies
         run: |
-          cmake -B build -S . "-DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -B build -S . DCMAKE_TOOLCHAIN_FILE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - name: Build
         run: "cmake --build build"
 
       - name: Run
-        run: cd build && ctest -c Debug
+        run: cd build && ctest -c $BUILD_TYPE
