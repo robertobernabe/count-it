@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <fmt/color.h>
 #include <nlohmann/json.hpp>
 
 namespace robertobernabe::countit
@@ -9,10 +10,21 @@ namespace robertobernabe::countit
     private:
         int count{ 1 };
         std::string name{};
+        fmt::color color{};
 
     public:
-        TapCounter(std::string name) : name(name){};
-        TapCounter() : name("default"){};
+        TapCounter(std::string name) : name(name), color(fmt::color::white){};
+        TapCounter() : name("default"), color(fmt::color::red){};
+
+        fmt::color get_color() const
+        {
+            return color;
+        }
+
+        void set_color(fmt::color value)
+        {
+            color = value;
+        }
 
         int get_count() const
         {

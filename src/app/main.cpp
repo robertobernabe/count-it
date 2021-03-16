@@ -5,7 +5,7 @@
 #include <CLI/App.hpp>
 #include <CLI/Config.hpp>
 #include <nlohmann/json.hpp>
-
+#include <fmt/color.h>
 #include <countit/countit.hpp>
 
 using namespace robertobernabe::countit;
@@ -19,6 +19,7 @@ int main(int argc, char** argv)
 {
     CLI::App app{ "countit\nA simple cli based tap counter" };
     auto countit = CountIt();
+    countit.deserialize();
     auto add = app.add_subcommand("add", "Increment count of given counter");
     auto list = app.add_subcommand("list", "List and show specific counter");
     std::string name = "default";
@@ -35,7 +36,7 @@ int main(int argc, char** argv)
             fmt::print("Available counters:\n");
             for (auto c : counters)
             {
-                fmt::print("{}: {}\n", c.get_name(), c.get_count());
+                fmt::print(fg(c.get_color()), "{}: {}\n", c.get_name(), c.get_count());
             }
         }
         else

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <mutex>
 #include <string>
+#include <vector>
 
 #include <nlohmann/json.hpp>
 #include "tap_counter.hpp"
@@ -53,6 +54,15 @@ namespace robertobernabe::countit
         std::vector<TapCounter> get_all_counters()
         {
             return counters;
+        }
+
+        void deserialize()
+        {
+            std::ifstream i(storage_filepath.string());
+            std::string str((std::istreambuf_iterator<char>(i)), std::istreambuf_iterator<char>());
+            nlohmann::json j = nlohmann::json::parse(str);
+            std::cout << "file json: " << j << std::endl;
+            counters = j.get<std::vector<TapCounter>>();
         }
 
         void serialize()
