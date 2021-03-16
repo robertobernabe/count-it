@@ -32,7 +32,7 @@ jobs:
         run: |
           cmake -B build -S . DCMAKE_TOOLCHAIN_FILE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       - name: Build
-        run: "cmake --build build"
+        run: "cmake --build build --config $BUILD_TYPE"
 
       - name: Run
         run: cd build && ctest -c $BUILD_TYPE
