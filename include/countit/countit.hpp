@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <mutex>
@@ -79,18 +80,15 @@ namespace robertobernabe::countit
             std::ifstream i(storage_filepath.string());
             std::string str((std::istreambuf_iterator<char>(i)), std::istreambuf_iterator<char>());
             nlohmann::json j = nlohmann::json::parse(str);
-            std::cout << "file json: " << j << std::endl;
             counters = j.get<std::vector<TapCounter>>();
         }
 
         void serialize()
         {
             nlohmann::json j = counters;
-            std::cout << "json: " << j << std::endl;
-
             std::ofstream o;
             std::lock_guard<std::mutex> lock(mutex);
-            std::cout << "Saveing: " << storage_filepath.string() << std::endl;
+            fmt::print("Save: {}\n", storage_filepath.string());
             o.open(storage_filepath.string());
             o << std::setw(4) << j << "\n";
             o.close();

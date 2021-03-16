@@ -1,6 +1,9 @@
 
+#pragma once
 #ifdef _WIN32
 #include <filesystem>
+#include <stdio.h>
+#include <Windows.h>
 #else
 #include <experimental/filesystem>
 #endif    // _WIN32
@@ -27,6 +30,15 @@ namespace robertobernabe::countit
             auto path = std::string(std::getenv("HOME"));
 #endif
             return path;
+        }
+
+        static void set_locale_utf8()
+        {
+#ifdef _WIN32
+            setlocale(LC_ALL, "en_US.UTF-8");
+#elif __linux
+
+#endif
         }
     };
 

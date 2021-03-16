@@ -7,6 +7,7 @@
 #include <nlohmann/json.hpp>
 #include <fmt/color.h>
 #include <countit/countit.hpp>
+#include <countit/system.hpp>
 
 using namespace robertobernabe::countit;
 
@@ -17,6 +18,7 @@ int parse_args(CLI::App& app, int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+    System::set_locale_utf8();
     CLI::App app{ "countit\nA simple cli based tap counter" };
     auto countit = CountIt();
     auto add = app.add_subcommand("add", "Increment count of given counter");
@@ -28,7 +30,7 @@ int main(int argc, char** argv)
         countit.deserialize();
         countit.add_counter(name);
         fmt::print("Added counter: {}\n", name);
-        fmt::print("Actual count: {}", countit.get_counter(name).get_count());
+        fmt::print("Actual count: {}\n\n", countit.get_counter(name).get_count());
     });
     list->callback([&]() {
         countit.deserialize();
