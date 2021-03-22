@@ -40,6 +40,20 @@ namespace robertobernabe::countit
 
 #endif
         }
+
+        static stdfs::path create_and_get_tmp_dir_path(std::string prefix = "countit")
+        {
+            stdfs::path tmp_dir_path{ stdfs::temp_directory_path() /= prefix };
+            tmp_dir_path = tmp_dir_path / std::tmpnam(nullptr);
+            // Attempt to create the directory.
+            stdfs::create_directories(tmp_dir_path);
+
+            // If that failed an exception will have been thrown
+            // so no need to check or throw your own
+
+            // Directory successfully created.
+            return tmp_dir_path;
+        }
     };
 
 }    // namespace robertobernabe::whour

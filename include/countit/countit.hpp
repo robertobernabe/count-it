@@ -41,6 +41,12 @@ namespace robertobernabe::countit
             storage_filepath = storage_directory_path / COUNTIT_STORAGE_FILE_NAME;
         };
 
+        CountIt(stdfs::path storage_directory_path)
+        {
+            stdfs::create_directories(storage_directory_path);
+            storage_filepath = storage_directory_path / COUNTIT_STORAGE_FILE_NAME;
+        }
+
         bool storage_file_exists()
         {
             return stdfs::exists(storage_filepath);
@@ -84,6 +90,28 @@ namespace robertobernabe::countit
             auto e = TapCounter();
             e.set_is_empty();
             return e;
+        }
+
+        void reset_counter(std::string name = "default")
+        {
+            for (auto& c : counters)
+            {
+                if (c.get_name() == name)
+                {
+                    c.set_count(0);
+                }
+            }
+        }
+
+        void remove_counter(std::string name = "default")
+        {
+            for (auto& c : counters)
+            {
+                if (c.get_name() == name)
+                {
+                    counters.erase(std::remove(counters.begin(), counters.end(), c));
+                }
+            }
         }
 
         std::vector<TapCounter> get_all_counters()

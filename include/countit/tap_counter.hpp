@@ -61,5 +61,23 @@ namespace robertobernabe::countit
         {
             count++;
         }
+
+        bool operator==(const TapCounter& other)
+        {
+            if (name == other.get_name() && count == other.get_count())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        bool operator!=(const TapCounter& other)
+        {
+            if (name != other.get_name() || count != other.get_count())
+            {
+                return true;
+            }
+            return false;
+        }
     };
 };
