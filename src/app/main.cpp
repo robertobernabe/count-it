@@ -23,8 +23,13 @@ int main(int argc, char** argv)
     auto countit = CountIt();
     auto add = app.add_subcommand("add", "Increment count of given counter");
     auto list = app.add_subcommand("list", "List and show specific counter");
+    auto reset = app.add_subcommand("reset", "Reset a specific counter");
+    auto remove = app.add_subcommand("remove", "Remove a specific counter");
     std::string name = "default";
+
     add->add_option("name", name, "Counter name");
+    reset->add_option("name", name, "Counter name");
+    remove->add_option("name", name, "Counter name");
 
     add->callback([&]() {
         countit.deserialize();
@@ -47,6 +52,14 @@ int main(int argc, char** argv)
             fmt::print("No counters there!\n");
         }
         exit(0);
+    });
+    reset->callback([&]() {
+        countit.deserialize();
+        countit.reset_counter(name);
+    });
+    remove->callback([&]() {
+        countit.deserialize();
+        countit.remove_counter(name);
     });
 
     auto result_code = parse_args(app, argc, argv);
