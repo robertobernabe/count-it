@@ -20,9 +20,22 @@ if(DEFINED VCPKG_ROOT)
   endif()
 endif()
 
-project(countit CXX)
+set(APP_LOW_NAME "countit")
+set(APP_URL "https://github.com/robertobernabe/countit")
+set(APP_EMAIL "hello@fschaeffeler.de")
+set(APP_COMPANY "Florian Schäffeler")
+
+project(
+  countit
+  VERSION 0.0.1
+  HOMEPAGE_URL ${APP_URL})
 option(USE_NSIS "Use NSIS generator to produce installer" OFF)
 include(GNUInstallDirs)
+
+set(APP_VERSION ${CMAKE_PROJECT_VERSION})
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/countit/version.hpp.in
+               ${CMAKE_CURRENT_SOURCE_DIR}/include/countit/version.hpp)
 
 add_subdirectory(src)
 include(CTest)

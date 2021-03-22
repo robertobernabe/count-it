@@ -1,0 +1,7 @@
+#pragma once
+#include <string>
+
+namespace robertobernabe::countit
+{
+    std::string VERSION = "@CMAKE_PROJECT_VERSION@";
+};
