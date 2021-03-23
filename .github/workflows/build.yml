@@ -28,9 +28,14 @@ jobs:
           vcpkgDirectory: "${{ github.workspace }}/vcpkg"
           setupOnly: true
           appendedCacheKey: ${{ hashFiles( '**/vcpkg_manifest/vcpkg.json' ) }}
+
+      - name: Install ninja-build tool
+        uses: seanmiddleditch/gha-setup-ninja@v3
+
       - name: Configure and build dependencies
         run: |
           cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
       - name: Build
         run: "cmake --build build --config Release"
 
