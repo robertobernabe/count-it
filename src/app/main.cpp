@@ -74,6 +74,10 @@ int main(int argc, char** argv)
         exit(0);
     }
 
-    countit.serialize();
+    if (add->parsed() || reset->parsed() || remove->parsed())
+    {
+        countit.serialize();
+    }
+
     return 0;
 }
