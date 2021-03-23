@@ -8,6 +8,7 @@
 #include <fmt/color.h>
 #include <countit/countit.hpp>
 #include <countit/system.hpp>
+#include <countit/version.hpp>
 
 using namespace robertobernabe::countit;
 
@@ -19,13 +20,17 @@ int parse_args(CLI::App& app, int argc, char** argv)
 int main(int argc, char** argv)
 {
     System::set_locale_utf8();
-    CLI::App app{ "countit\nA simple cli based tap counter" };
+    std::string app_version = fmt::format("countit {}", VERSION);
+    std::string app_desc = fmt::format("{}\nA simple cli based tap counter", app_version);
+    std::string name = "default";
+    bool show_version = false;
+    CLI::App app{ app_desc };
     auto countit = CountIt();
+    app.add_flag("--version,-v", show_version, "Show version and exit.");
     auto add = app.add_subcommand("add", "Increment count of given counter");
     auto list = app.add_subcommand("list", "List and show specific counter");
     auto reset = app.add_subcommand("reset", "Reset a specific counter");
     auto remove = app.add_subcommand("remove", "Remove a specific counter");
-    std::string name = "default";
 
     add->add_option("name", name, "Counter name");
     reset->add_option("name", name, "Counter name");
@@ -63,6 +68,12 @@ int main(int argc, char** argv)
     });
 
     auto result_code = parse_args(app, argc, argv);
+    if (show_version)
+    {
+        fmt::print("{}\n", app_version);
+        exit(0);
+    }
+
     countit.serialize();
     return 0;
 }
