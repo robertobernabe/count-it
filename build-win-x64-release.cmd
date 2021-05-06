@@ -1,0 +1,2 @@
+cmake.exe -G "Ninja" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B ".\build" -DVCPKG_TARGET_TRIPLET:STRING="x86-windows" -DCMAKE_BUILD_TYPE="Release" -DCMAKE_TOOLCHAIN_FILE="%~dp0vcpkg/scripts/buildsystems/vcpkg.cmake"
+cmake.exe --build ".\build" --config Release --clean-first --verbose
