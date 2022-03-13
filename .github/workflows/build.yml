@@ -34,7 +34,8 @@ jobs:
 
       - name: Configure and build dependencies
         run: |
-          cmake -B build -S . -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          # cmake -B build -S . -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+          cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build
         run: "cmake --build build --config Release"
